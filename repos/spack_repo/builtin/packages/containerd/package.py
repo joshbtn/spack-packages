@@ -24,7 +24,7 @@ class Containerd(MakefilePackage):
     variant("cri", default=True, description="Enable CRI plugin for Kubernetes")
     variant("btrfs", default=False, description="Enable btrfs snapshotter support")
     variant("aufs", default=False, description="Enable aufs snapshotter support (deprecated)")
-    variant("seccomp", default=True, description="Enable seccomp support")
+    variant("seccomp", default=False, description="Enable seccomp support")
     variant("apparmor", default=False, description="Enable AppArmor support")
     variant("systemd", default=False, description="Enable systemd cgroup support")
 
