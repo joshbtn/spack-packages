@@ -3,7 +3,7 @@
         "dockerfile": "Dockerfile",
         "context": "..",
         "target": "devcontainer"
-    },
+    }ch,
     "customizations": {
         "vscode": {
             "extensions": [

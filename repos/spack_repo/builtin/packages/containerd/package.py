@@ -1,5 +1,5 @@
 from spack.package import *
-
+from spack_repo.builtin.build_systems.makefile import MakefilePackage
 
 class Containerd(MakefilePackage):
     """An open and reliable container runtime with emphasis on simplicity,
@@ -7,14 +7,14 @@ class Containerd(MakefilePackage):
     and is a graduated CNCF project."""
 
     homepage = "https://containerd.io"
-    url      = "https://github.com/containerd/containerd/archive/refs/tags/v2.1.4.tar.gz"
+    #url      = "https://github.com/containerd/containerd/archive/refs/tags/v2.1.4.tar.gz"
     git      = "https://github.com/containerd/containerd.git"
 
     maintainers = ["spack-maintainers"]
 
     license("Apache-2.0")
 
-    version("2.1.4", sha256="75cb2b7193e4e490e9fbdc236c0e811ccaba3376")
+    version("2.1.4", tag="v2.1.4", commit="75cb2b7193e4e490e9fbdc236c0e811ccaba3376")
 
     # Build dependencies
     depends_on("go@1.23:", type="build")
