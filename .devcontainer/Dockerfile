@@ -13,8 +13,8 @@ RUN apt-get update && apt-get install -y \
 FROM base AS devcontainer
 
 RUN git clone --depth=2 --branch=releases/v1.0 https://github.com/spack/spack.git ~/spack \
-    echo "source ~/spack/share/spack/setup-env.sh" >> ~/.bashrc \
-    echo "" > ~/.spack/etc/spack/repos.yaml \
-    echo "repos:"  >> ~/.spack/etc/spack/repos.yaml \
-    echo "    builtin: /workspaces/spack-packages/repos/spack_repo/builtin/" >> ~/.spack/etc/spack/repos.yaml
+    && echo "source ~/spack/share/spack/setup-env.sh" > ~/.bashrc \
+    && echo "" > /root/spack/etc/spack/defaults/repos.yaml \
+    && echo "repos:"  >> /root/spack/etc/spack/defaults/repos.yaml \
+    && echo "    builtin: /workspaces/spack-packages/repos/spack_repo/builtin/" >> /root/spack/etc/spack/defaults/repos.yaml
     
