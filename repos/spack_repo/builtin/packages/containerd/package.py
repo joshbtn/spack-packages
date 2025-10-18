@@ -25,9 +25,10 @@ class Containerd(MakefilePackage):
     variant("btrfs", default=False, description="Enable btrfs snapshotter support")
     variant("aufs", default=False, description="Enable aufs snapshotter support (deprecated)")
     variant("seccomp", default=True, description="Enable seccomp support")
-    variant("apparmor", default=True, description="Enable AppArmor support")
-    variant("systemd", default=True, description="Enable systemd cgroup support")
+    variant("apparmor", default=False, description="Enable AppArmor support")
+    variant("systemd", default=False, description="Enable systemd cgroup support")
 
+    variant("static", default=False, description="Build containerd with static linking")
     # Platform-specific considerations
     conflicts("+apparmor", when="platform=darwin", msg="AppArmor only available on Linux")
     conflicts("+systemd", when="platform=darwin", msg="systemd only available on Linux")
@@ -56,6 +57,13 @@ class Containerd(MakefilePackage):
             self.build_targets.append("BUILDTAGS+=apparmor")
         if "+systemd" in spec:
             self.build_targets.append("BUILDTAGS+=systemd")
+
+# Control static linking
+        if "+static" in spec:
+            self.build_targets.append("STATIC=1")
+        else:
+            self.build_targets.append("STATIC=0")
+        
 
     def install(self, spec, prefix):
         make("install", *self.build_targets, "PREFIX={0}".format(prefix))
