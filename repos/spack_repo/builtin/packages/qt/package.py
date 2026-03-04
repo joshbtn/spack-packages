@@ -252,7 +252,7 @@ class Qt(Package):
     depends_on("python", when="@5.7.0:", type="build")
 
     # Dependencies, then variant- and version-specific dependencies
-    depends_on("icu4c")
+    depends_on("icu4c@:74")  # @75: requires cxxstd 17 which is not modelled here
     depends_on("jpeg")
     depends_on("libtiff")
     depends_on("libxml2")
@@ -329,11 +329,11 @@ class Qt(Package):
 
     # Mapping for compilers/systems in the QT 'mkspecs'
     compiler_mapping = {
-        "intel": ("icc",),
+        "intel-oneapi-compilers-classic": ("icc",),
         # This only works because we apply patch "qt51514-oneapi.patch"
         # above that replaces calls to "icc" with calls to "icx" in
         # qtbase/mkspecs/*
-        "oneapi": ("icc",),
+        "intel-oneapi-compilers": ("icc",),
         "apple-clang": ("clang-libc++", "clang"),
         "clang": ("clang-libc++", "clang"),
         "aocc": ("clang-libc++", "clang"),
@@ -773,7 +773,7 @@ class Qt(Package):
             config_args.extend(["-nomake", "demos"])
 
         if MACOS_VERSION:
-            sdkpath = which("xcrun")("--show-sdk-path", output=str).strip()
+            sdkpath = which("xcrun", required=True)("--show-sdk-path", output=str).strip()
             config_args.extend(["-cocoa", "-sdk", sdkpath])
 
         if IS_WINDOWS:
